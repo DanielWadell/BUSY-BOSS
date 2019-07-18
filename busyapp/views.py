@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from busyapp.models import UserInfo,CompanyInfo,Post
-from busyapp.forms import UserForm,CompanyForm
+from busyapp.forms import UserForm,CompanyForm,PostForm
 from django.utils import timezone
 from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView,ListView,DetailView
+from django.views.generic import TemplateView,ListView,DetailView,CreateView,UpdateView,DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def index(request):
     return render(request,'busyapp/base.html')
@@ -79,3 +80,19 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+
+class CreatePostView(LoginRequiredMixin,CreateView):
+    login_url = '/login/'
+    redirect_field_name = 'busyapp/base.html'
+    form_class = PostForm
+    model = Post
+
+class PostUpdateView(LoginRequiredMixin,UpdateView):
+    login_url = '/login/'
+    redirect_field_name = 'busyapp/base.html'
+    form_class = PostForm
+    model = Post
+
+class PostDeleteView(LoginRequiredMixin,DeleteView):
+    model = Post
+    success_url = reverse_lazy('index')

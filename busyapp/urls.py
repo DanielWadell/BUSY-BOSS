@@ -10,4 +10,6 @@ urlpatterns = [
     path('log_in/',views.user_login,name='login'),
     path('log_out/',views.user_logout,name='logout'),
     path('post_detail/<int:pk>/',views.PostDetailView.as_view(),name='post_detail'),
+    path('post/new/',views.CreatePostView.as_view(),name='post_new'),
+    path('post/<int:pk>/edit/',views.PostUpdateView.as_view(),name='post_edit'),
 ]

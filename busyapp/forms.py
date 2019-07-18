@@ -1,6 +1,6 @@
 from django import forms
 from django.core import validators
-from busyapp.models import CompanyInfo
+from busyapp.models import CompanyInfo,Post
 from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
@@ -15,3 +15,8 @@ class CompanyForm(forms.ModelForm):
     class Meta():
         model = CompanyInfo
         fields = ('company_username',)
+
+class PostForm(forms.ModelForm):
+    class Meta():
+        model = Post
+        fields = ('title','text',)
