@@ -1,0 +1,14 @@
+<form methond='GET'>
+    {% csrf_token %}
+    <input id='q' name='q' type="text" placeholder="Search">
+</form>
+
+{% for item in posts %}
+
+    {{ item.title }}
+    {{ item.slug }}
+    {{ item.image}}
+
+    <br>
+
+{% endfor %}
