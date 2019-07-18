@@ -18,11 +18,14 @@ class Post(models.Model):
     def approve_comments(self):
         return self.comments.filter(approve_comment=True)
 
+    def get_absolute_url(self):
+        return reverse("post_detail",kwargs={'pk':self.pk})
+
     def __str__(self):
         return self.title
 
 class Comment(models.Model):
-    post = models.ForeignKey('blog.Post', related_name='comments')
+    post = models.ForeignKey('busyapp.Post', related_name='comments', on_delete=models.CASCADE)
     author = models.CharField(max_length=264)
     text = models.TextField()
     create_date = models.DateTimeField(default=timezone.now())
@@ -32,5 +35,12 @@ class Comment(models.Model):
         self.approved_comment = True
         self.save()
 
+    def get_absolute_url(self):
+        return reverse('post_list')
+
     def __str__(self):
         return self.text
+
+class Company(models.Model):
+    company_name = models.CharField(max_length=264,unique=True)
+    company_entrance_code = models.CharField(max_length=264)
