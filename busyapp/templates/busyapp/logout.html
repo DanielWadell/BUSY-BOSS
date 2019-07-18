@@ -1,0 +1,14 @@
+{% extends 'busyapp/base.html' %}
+
+{% block body_block%}
+
+<form action="{% url 'busyapp:logout' %}">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-success" value="Logout">
+</form>
+<form action="{% url 'busyapp:index' %}">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-primary" value="Cancel">
+</form>
+
+{% endblock %}

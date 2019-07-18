@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'busyapp',
     'search',
-    'django_elasticsearch_dsl'
+    'django_elasticsearch_dsl',
 ]
 
 ELASTICSEARCH_DSL = {

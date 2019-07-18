@@ -1,8 +1,31 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth.models import User,Group
+
+class CompanyInfo(models.Model):
+    company = models.OneToOneField(Group,on_delete=models.CASCADE)
+    company_username = models.CharField(max_length=264)
+    
+    def get_absolute_url(self):
+        return reverse('base')
+
+    def __str__(self):
+        return self.company_name
+
+class UserInfo(models.Model):
+    company = models.ForeignKey(CompanyInfo, related_name='userinfos', on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    profile_pic = models.ImageField(upload_to="media/profile_pics",blank=True)
+
+    def get_absolute_url(self):
+        return reverse('base')
+
+    def __str__(self):
+        return self.user.username
 
 class Post(models.Model):
+    userinfo = models.ForeignKey(UserInfo, related_name='posts', on_delete=models.CASCADE)
     author = models.ForeignKey('auth.User',on_delete=models.CASCADE)
     title = models.CharField(max_length=264,unique=True)
     text = models.TextField()
@@ -19,7 +42,7 @@ class Post(models.Model):
         return self.comments.filter(approve_comment=True)
 
     def get_absolute_url(self):
-        return reverse("post_detail",kwargs={'pk':self.pk})
+        return reverse('post_detail',kwargs={'pk':self.pk})
 
     def __str__(self):
         return self.title
@@ -40,7 +63,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
-
-class Company(models.Model):
-    company_name = models.CharField(max_length=264,unique=True)
-    company_entrance_code = models.CharField(max_length=264)
