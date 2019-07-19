@@ -1,12 +1,12 @@
 {% extends 'busyapp/base.html' %}
 
-{% block content %}
+{% block body_block %}
     <h1>New post</h1>
 
     <form method="POST" class="post-form">
     {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" class="save btn btn-default">Save</button>
+    {{post.as_p}}
+    <button type="submit" class="btn btn-success"><a href="{% url 'busyapp:index'%}">Save</a></button>
     </form>
 
     <script>var editor = new MediumEditor('.editable');</script>
