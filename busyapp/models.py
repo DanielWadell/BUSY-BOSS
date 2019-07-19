@@ -6,7 +6,7 @@ from django.contrib.auth.models import User,Group
 class CompanyInfo(models.Model):
     company = models.OneToOneField(Group,on_delete=models.CASCADE)
     company_username = models.CharField(max_length=264)
-    
+
     def get_absolute_url(self):
         return reverse('base')
 
@@ -16,7 +16,6 @@ class CompanyInfo(models.Model):
 class UserInfo(models.Model):
     company = models.ForeignKey(CompanyInfo, related_name='userinfos', on_delete=models.CASCADE)
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    profile_pic = models.ImageField(upload_to="media/profile_pics",blank=True)
 
     def get_absolute_url(self):
         return reverse('base')
