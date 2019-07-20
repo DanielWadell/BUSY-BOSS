@@ -3,10 +3,11 @@
 {% block body_block %}
     <h1>New post</h1>
 
-    <form method="POST" class="post-form">
+    <form method="POST" class="post-form" action='{% url 'busyapp:create_post' %}'>
     {% csrf_token %}
     {{post.as_p}}
-    <button type="submit" class="btn btn-success"><a href="{% url 'busyapp:create' %}">Save</a></button>
+    <button type="submit" class="btn btn-success">Save</button>
+    {{post.save}}
     </form>
 
     <script>var editor = new MediumEditor('.editable');</script>

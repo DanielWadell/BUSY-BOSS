@@ -112,18 +112,22 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('busyapp:index'))
 
 @login_required
+def start_post(request):
+    form = PostForm()
+    return render(request, 'busyapp/post_form.html',{'post':form})
+
+@login_required
 def create_post(request):
     author = get_author(request.user.username)
     if request.method == 'POST':
         form = PostForm(request.POST)
-        post = form.save(commit=True)
-        post.save()
         if form.is_valid():
-            post = form.save(commit=True)
-            # form.instance.author = author
+            post = form.save(commit=False)
             post.save()
-            return redirect(reverse("post_detail",kwargs={'id': form.instance.id}))
-    return render(request,'busyapp/post_form.html',{'post':form})
+            return redirect(reverse("busyapp/post_detail.html",kwargs={'id': form.instance.id}))
+    else:
+        post = PostForm()
+    return render(request,'busyapp/post_form.html',{'post':post})
 
 @login_required
 def add_comment_to_post(request, pk):

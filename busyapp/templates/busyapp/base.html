@@ -23,12 +23,12 @@
                 <a class="nav-link" href="{% url 'busyapp:logout' %}">Log out</a>
               </li>
               <li class='nav-item'>
-                <a class="nav-link" href="{% url 'busyapp:create' %}" >New Post</a>
+                <a class="nav-link" href="{% url 'busyapp:start' %}" >New Post</a>
               </li>
               
             {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'busyapp:register' %}">Register</a>
+                <a class="nav-link" href="{% url 'busyapp:register_user' %}">Register</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'busyapp:login' %}">Log in</a>
