@@ -14,7 +14,7 @@ class CompanyInfo(models.Model):
         return self.company_name
 
 class UserInfo(models.Model):
-    company = models.ForeignKey(CompanyInfo, related_name='userinfos', on_delete=models.CASCADE)
+    # company = models.ForeignKey(CompanyInfo, related_name='userinfos', on_delete=models.CASCADE)
     user = models.OneToOneField(User,on_delete=models.CASCADE)
 
     def get_absolute_url(self):
@@ -24,7 +24,7 @@ class UserInfo(models.Model):
         return self.user.username
 
 class Post(models.Model):
-    userinfo = models.ForeignKey(UserInfo, related_name='posts', on_delete=models.CASCADE)
+    # userinfo = models.ForeignKey(UserInfo, related_name='posts', on_delete=models.CASCADE)
     author = models.ForeignKey('auth.User',on_delete=models.CASCADE)
     title = models.CharField(max_length=264,unique=True)
     text = models.TextField()

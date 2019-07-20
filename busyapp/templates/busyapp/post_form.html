@@ -6,7 +6,7 @@
     <form method="POST" class="post-form">
     {% csrf_token %}
     {{post.as_p}}
-    <button type="submit" class="btn btn-success"><a href="{% url 'busyapp:index'%}">Save</a></button>
+    <button type="submit" class="btn btn-success"><a href="{% url 'busyapp:create' %}">Save</a></button>
     </form>
 
     <script>var editor = new MediumEditor('.editable');</script>
