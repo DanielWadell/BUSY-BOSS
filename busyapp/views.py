@@ -100,12 +100,6 @@ def user_login(request):
     else:
         return render(request,'busyapp/login.html')
 
-def get_author(user):
-    qs = User.objects.filter(username=User.username)
-    if qs.exists():
-        return qs[0]
-    return None
-
 @login_required
 def user_logout(request):
     logout(request)
