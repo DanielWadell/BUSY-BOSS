@@ -118,13 +118,18 @@ def start_post(request):
 
 @login_required
 def create_post(request):
-    author = get_author(request.user.username)
+    # author = get_author(request.user.username)
     if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
+        post_form = PostForm(data=request.POST)
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+            post.author = request.user
             post.save()
-            return redirect(reverse("busyapp/post_detail.html",kwargs={'id': form.instance.id}))
+            return HttpResponseRedirect(reverse('busyapp:index'))
+        else:
+            print(post_form.errors)
+            post = PostForm()
+            return HttpResponse("data didn't validate")
     else:
         post = PostForm()
     return render(request,'busyapp/post_form.html',{'post':post})

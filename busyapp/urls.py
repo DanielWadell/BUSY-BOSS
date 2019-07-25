@@ -10,7 +10,6 @@ urlpatterns = [
     path('log_in/',views.user_login,name='login'),
     path('log_out/',views.user_logout,name='logout'),
     path('post/create/',views.create_post,name='create_post'),
-    path('post/start/',views.start_post,name='start'),
     path('comment/<int:pk>/approve/', views.comment_approve, name='comment_approve'),
     path('comment/<int:pk>/remove/', views.comment_remove, name='comment_remove'),
 ]

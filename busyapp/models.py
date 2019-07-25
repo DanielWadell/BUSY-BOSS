@@ -25,11 +25,11 @@ class UserInfo(models.Model):
 
 class Post(models.Model):
     # userinfo = models.ForeignKey(UserInfo, related_name='posts', on_delete=models.CASCADE)
-    author = models.ForeignKey('auth.User',on_delete=models.CASCADE)
+    author = models.ForeignKey('auth.User',on_delete=models.CASCADE,blank=True)
     title = models.CharField(max_length=264,unique=True)
     text = models.TextField()
-    image = models.ImageField(upload_to="post_images")
-    create_date = models.DateTimeField(default=timezone.now())
+    image = models.ImageField(upload_to="post_images",blank=True)
+    create_date = models.DateTimeField(default=timezone.now(),blank=True)
     published_date = models.DateTimeField(blank=True,null=True)
     slug = models.SlugField(default='',blank=True)
 

@@ -3,13 +3,15 @@
 {% block body_block %}
     <h1>New post</h1>
 
-    <form method="POST" class="post-form" action='{% url 'busyapp:create_post' %}'>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'busyapp:create_post' %}">
+        
     {% csrf_token %}
+    <!-- {{ post.title.as_p }}
+    {{ post.text.as_p }} -->
     {{post.as_p}}
-    <button type="submit" class="btn btn-success">Save</button>
-    {{post.save}}
+    <input type="submit" class="btn btn-success" value="submit">
     </form>
 
-    <script>var editor = new MediumEditor('.editable');</script>
+    <!-- <script>var editor = new MediumEditor('.editable');</script> -->
 
 {% endblock %}
