@@ -4,4 +4,10 @@
 
 <h1>Welcome to Busy Boss homepage!</h1>
 
+    {% for post in posts %}
+    <div class='jumbotron'>
+        <h1>{{ post.title }}</h1>
+    </div>
+
+    {% endfor %}
 {% endblock %}
