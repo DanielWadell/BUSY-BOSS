@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'busyapp',
-    'search',
+    # 'search',
     'django_elasticsearch_dsl',
 ]
 

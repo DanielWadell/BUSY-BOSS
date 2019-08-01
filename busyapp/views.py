@@ -114,35 +114,21 @@ def start_post(request):
     form = PostForm()
     return render(request, 'busyapp/post_form.html',{'post':form})
 
+class PostUpdateView(UpdateView):
+    fields=('title','text')
+    model = Post
+
+class PostDeleteView(DeleteView):
+    model = Post
+    success_url = reverse_lazy('post_list')
+
+class CreatePostView(CreateView):
+    
+    fields = ('title','text','author')
+    model = Post
+
 class PostDetailView(DetailView):
     model = Post
-    # template_name = 'busyapp/post_list.html'
-    # context_object_name = 'post'
-
-class PostListView(ListView):
-    model = Post
-    # template_name = 'busyapp/post_list.html'
-    # context_object_name = 'post'
-    # def get_queryset(self):
-    #     return Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-
-@login_required
-def create_post(request):
-    # author = get_author(request.user.username)
-    if request.method == 'POST':
-        post_form = PostForm(data=request.POST)
-        if post_form.is_valid():
-            post = post_form.save(commit=False)
-            post.author = request.user
-            post.save()
-            return reverse_lazy('busyapp:index')
-        else:
-            print(post_form.errors)
-            post = PostForm()
-            return HttpResponse("data didn't validate")
-    else:
-        post = PostForm()
-    return render(request,'busyapp/post_form.html',{'post':post})
 
 @login_required
 def add_comment_to_post(request, pk):
@@ -165,11 +151,9 @@ def comment_approve(request, pk):
     comment.approve()
     return redirect('post_detail', pk=comment.post.pk)
 
-@login_required
-def post_publish(request, pk):
+def post_publish(request,pk):
     post = get_object_or_404(Post, pk=pk)
-    post.publish()
-    return redirect('post_detail', pk=pk)
+    return redirect('busyapp:post_detail')
 
 @login_required
 def comment_remove(request, pk):

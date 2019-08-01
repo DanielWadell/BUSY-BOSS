@@ -25,7 +25,7 @@ class UserInfo(models.Model):
 
 class Post(models.Model):
     # userinfo = models.ForeignKey(UserInfo, related_name='posts', on_delete=models.CASCADE)
-    author = models.ForeignKey('auth.User',on_delete=models.CASCADE,blank=True)
+    author = models.ForeignKey(User,on_delete=models.CASCADE,blank=False)
     title = models.CharField(max_length=264,unique=True)
     text = models.TextField()
     image = models.ImageField(upload_to="post_images",blank=True)
@@ -41,7 +41,7 @@ class Post(models.Model):
         return self.comments.filter(approve_comment=True)
 
     def get_absolute_url(self):
-        return reverse('post_detail',kwargs={'pk':self.pk})
+        return reverse('busyapp:post_detail',kwargs={'pk':self.pk})
 
     def __str__(self):
         return self.title
@@ -58,7 +58,7 @@ class Comment(models.Model):
         self.save()
 
     def get_absolute_url(self):
-        return reverse('post_list')
+        return reverse('busyapp:post_list')
 
     def __str__(self):
         return self.text

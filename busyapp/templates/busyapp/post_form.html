@@ -3,12 +3,12 @@
 {% block body_block %}
     <h1>New post</h1>
 
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" >
         
     {% csrf_token %}
     <!-- {{ post.title.as_p }}
     {{ post.text.as_p }} -->
-    {{post.as_p}}
+    {{form.as_p}}
     <input type="submit" class="btn btn-success" value="submit">
     </form>
 

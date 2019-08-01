@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from busyapp import views
-from search import views as search_views
+# from search import views as search_views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', include('busyapp.urls'),name='busyapp'),
     path('',views.index,name='index'),
-    path('search/', search_views.search, name='search')
+    # path('search/', search_views.search, name='search')
 ]
