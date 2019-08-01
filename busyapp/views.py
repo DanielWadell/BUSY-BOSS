@@ -118,9 +118,21 @@ class PostUpdateView(UpdateView):
     fields=('title','text')
     model = Post
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            return HttpResponse("You are not allowed to edit this Post")
+        return super(PostUpdateView, self).dispatch(request, *args, **kwargs)
+
 class PostDeleteView(DeleteView):
     model = Post
     success_url = reverse_lazy('post_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            return HttpResponse("You are not allowed to delete this Post")
+        return super(PostDeleteView, self).dispatch(request, *args, **kwargs)
 
 class CreatePostView(CreateView):
     
