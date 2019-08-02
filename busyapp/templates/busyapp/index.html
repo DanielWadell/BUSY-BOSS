@@ -3,7 +3,7 @@
 {% block body_block %}
 
 <h1>Welcome to Busy Boss homepage!</h1>
-
+    {% if user.is_authenticated %}
     {% for post in posts %}
     <a href="{% url 'busyapp:post_detail' pk=post.pk %}">
         <div class='jumbotron'>
@@ -12,4 +12,7 @@
     </a>
 
     {% endfor %}
+    {% else %}
+    <div class='jumbotron'><h2>Please login or register to view blog posts</h2></div>
+    {% endif %}
 {% endblock %}

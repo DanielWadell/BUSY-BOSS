@@ -126,7 +126,7 @@ class PostUpdateView(UpdateView):
 
 class PostDeleteView(DeleteView):
     model = Post
-    success_url = reverse_lazy('post_list')
+    success_url = reverse_lazy('busyapp:index')
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
@@ -151,7 +151,7 @@ def add_comment_to_post(request, pk):
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
-            return redirect('post_detail', pk=post.pk)
+            return redirect('busyapp:post_detail', pk=post.pk)
     else:
         form = CommentForm()
     return render(request, 'busyapp/comment_form.html', {'form': form})
@@ -165,11 +165,11 @@ def comment_approve(request, pk):
 
 def post_publish(request,pk):
     post = get_object_or_404(Post, pk=pk)
-    return redirect('busyapp:post_detail')
+    return redirect('busyapp:index')
 
 @login_required
 def comment_remove(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     post_pk = comment.post.pk
     comment.delete()
-    return redirect('post_detail', pk=post_pk)
+    return redirect('busyapp:post_detail', pk=post_pk)
