@@ -60,19 +60,18 @@ def register_user(request):
 
         if user_form.is_valid():
 
-            user = user_form.save()
+            user = user_form.save(commit=False)
             user.set_password(user.password)
             user.save()
-            profile = user_form.save(commit=False)
-            profile.user = user
 
             registered = True
-            if 'profile_pic' in request.FILES:
-                profile.profile_pic = request.FILES['profile_pic']
+            # if 'profile_pic' in request.FILES:
+            #     profile.profile_pic = request.FILES['profile_pic']
 
-                profile.save()
+            #     profile.save()
+            return redirect('busyapp:index')
         else:
-            print(user_form.errors,user_form.errors)
+           return HttpResponse("invalid login!!!")
     else:
         user_form = UserForm()
         company_form = CompanyForm()
