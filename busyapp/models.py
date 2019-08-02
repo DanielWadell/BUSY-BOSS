@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from busyboss import settings
 from django.contrib.auth.models import User,Group
 
 class CompanyInfo(models.Model):
@@ -48,7 +49,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey('busyapp.Post', related_name='comments', on_delete=models.CASCADE)
-    author = models.CharField(max_length=264)
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
     text = models.TextField()
     create_date = models.DateTimeField(default=timezone.now())
     approved_comment = models.BooleanField(default=False)

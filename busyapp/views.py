@@ -139,6 +139,11 @@ class CreatePostView(CreateView):
     fields = ('title','text','author')
     model = Post
 
+class CreateCommentView(CreateView):
+    
+    fields = ('text',)
+    model = Comment
+
 class PostDetailView(DetailView):
     model = Post
 
@@ -149,6 +154,7 @@ def add_comment_to_post(request, pk):
         form = CommentForm(data=request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.author = request.user
             comment.post = post
             comment.save()
             return redirect('busyapp:post_detail', pk=post.pk)
