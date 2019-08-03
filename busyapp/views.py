@@ -147,7 +147,11 @@ class CreatePostView(CreateView):
         obj.author = self.request.user
         obj.save()
         return redirect('busyapp:index')
+class PostListView(ListView):
+    model = Post
 
+    # def get_queryset(self):
+    #     return Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
 class CreateCommentView(CreateView):
     
     fields = ('text',)
@@ -155,6 +159,12 @@ class CreateCommentView(CreateView):
 
 class PostDetailView(DetailView):
     model = Post
+
+class DraftListView(ListView):
+    model = Post
+
+    # def get_queryset(self):
+    #     return Post.objects.filter(published_date__isnull=True).order_by('created_date')
 
 @login_required
 def add_comment_to_post(request, pk):
