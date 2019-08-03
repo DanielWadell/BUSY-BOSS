@@ -135,8 +135,18 @@ class PostDeleteView(DeleteView):
 
 class CreatePostView(CreateView):
     
-    fields = ('title','text','author')
+    fields = ('title','text',)
     model = Post
+    def form_valid(self, PostForm):
+        """
+        Called if all forms are valid. Creates a Recipe instance along with
+        associated Ingredients and Instructions and then redirects to a
+        success page.
+        """
+        obj = PostForm.save(commit=False)
+        obj.author = self.request.user
+        obj.save()
+        return redirect('busyapp:index')
 
 class CreateCommentView(CreateView):
     
@@ -166,11 +176,12 @@ def add_comment_to_post(request, pk):
 def comment_approve(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.approve()
-    return redirect('post_detail', pk=comment.post.pk)
+    return redirect('busyapp:post_detail', pk=comment.post.pk)
 
 def post_publish(request,pk):
     post = get_object_or_404(Post, pk=pk)
-    return redirect('busyapp:index')
+    post.publish()
+    return redirect('busyapp:post_detail', pk=pk)
 
 @login_required
 def comment_remove(request, pk):

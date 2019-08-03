@@ -5,12 +5,13 @@
 <h1>Welcome to Busy Boss homepage!</h1>
     {% if user.is_authenticated %}
     {% for post in posts %}
+    {% if post.published_date %}
     <a href="{% url 'busyapp:post_detail' pk=post.pk %}">
         <div class='jumbotron'>
             <h1>{{ post.title }}</h1>
         </div>
     </a>
-
+    {% endif %}
     {% endfor %}
     {% else %}
     <div class='jumbotron'><h2>Please login or register to view blog posts</h2></div>

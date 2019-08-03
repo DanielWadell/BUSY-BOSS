@@ -21,7 +21,7 @@
           <a class="btn btn-primary" href="{% url 'busyapp:post_edit' pk=post.pk %}">edit</a>
           <a class="btn btn-primary" href="{% url 'busyapp:post_remove' pk=post.pk %}">delete</a>
       {% endif %}
-
+      <p>Posted by: <strong>{{ post.author }}</strong></p>
 
 
   <hr>
