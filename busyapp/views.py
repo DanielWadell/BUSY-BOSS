@@ -13,7 +13,7 @@ from django.views.generic import (TemplateView,ListView,
                                   UpdateView,DeleteView)
 
 def index(request):
-    context = {'posts':Post.objects.all()}
+    context = {'posts':Post.objects.order_by('-published_date')}
     return render(request,'busyapp/index.html',context)
 
 def is_member(user):
