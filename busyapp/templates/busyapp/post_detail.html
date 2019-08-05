@@ -18,8 +18,10 @@
 
 
       {% if user.is_authenticated %}
+      {% if user == post.author %}
           <a class="btn btn-primary" href="{% url 'busyapp:post_edit' pk=post.pk %}">edit</a>
           <a class="btn btn-primary" href="{% url 'busyapp:post_remove' pk=post.pk %}">delete</a>
+      {% endif %}
       {% endif %}
       <p>Posted by: <strong>{{ post.author }}</strong></p>
 
@@ -32,15 +34,15 @@
   {% for comment in post.comments.all %}
   <br>
       {% if user.is_authenticated or comment.approved_comment %}
-
-              {{ comment.created_date }}
+            <div class='jumbotron'>
+                <p>{{ comment.text|safe|linebreaks }}</p>
+            </div>
+              
               {% if not comment.approved_comment %}
                   <a class="btn btn-default" href="{% url 'busyapp:comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
                   <a class="btn btn-default" href="{% url 'busyapp:comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
               {% endif %}
-
-          <p>{{ comment.text|safe|linebreaks }}</p>
-          <p>Posted by: <strong>{{ comment.author }}</strong></p>
+          <p>Posted by: <strong>{{ comment.author }}</strong> on <strong>{{ comment.create_date }}</strong></p>
 
       {% endif %}
   {% empty %}
