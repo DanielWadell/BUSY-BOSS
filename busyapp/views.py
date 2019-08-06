@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from busyapp.models import UserInfo,CompanyInfo,Post,Comment
 from busyapp.forms import UserForm,CompanyForm,PostForm,CommentForm
 from django.utils import timezone
+from django.core.paginator import Paginator
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
@@ -13,8 +14,13 @@ from django.views.generic import (TemplateView,ListView,
                                   UpdateView,DeleteView)
 
 def index(request):
-    context = {'posts':Post.objects.order_by('-published_date')}
-    return render(request,'busyapp/index.html',context)
+    posts = Post.objects.order_by('-published_date')
+    posts = posts.filter(published_date__contains=':')
+    paginator = Paginator(posts, 3)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+    return render(request,'busyapp/index.html',{'posts':posts})
 
 def is_member(user):
     return user.groups.filter(name='Member').exists()
