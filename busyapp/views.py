@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse,reverse_lazy
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (TemplateView,ListView,
@@ -205,3 +206,19 @@ def comment_remove(request, pk):
     post_pk = comment.post.pk
     comment.delete()
     return redirect('busyapp:post_detail', pk=post_pk)
+
+@login_required
+def search(request):
+    template = 'busyapp/index.html'
+
+    query = request.GET.get('q')
+
+    results = Post.objects.filter(Q(title__icontains=query)|Q(text__icontains=query))
+
+    results = results.filter(published_date__contains=':')
+
+    paginator = Paginator(results, 3)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+    return render(request, template, {'posts':posts})

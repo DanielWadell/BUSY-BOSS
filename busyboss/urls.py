@@ -23,5 +23,4 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', include('busyapp.urls'),name='busyapp'),
     path('',views.index,name='index'),
-    # path('search/', search_views.search, name='search')
 ]

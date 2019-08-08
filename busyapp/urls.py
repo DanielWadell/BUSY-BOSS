@@ -6,9 +6,10 @@ app_name = 'busyapp'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('register_user/',views.register_user,name='register_user'),
-    path('log_in/',views.user_login,name='login'),
-    path('log_out/',views.user_logout,name='logout'),
+    path('register_user/', views.register_user, name='register_user'),
+    path('log_in/', views.user_login, name='login'),
+    path('log_out/', views.user_logout, name='logout'),
+    path('results/', views.search, name='search'),
     path('post/publish/<int:pk>/', views.post_publish, name='post_publish'),
     path('post/details/<int:pk>/', views.PostDetailView.as_view(), name='post_detail'),
     path('post/create/',views.CreatePostView.as_view(),name='create_post'),

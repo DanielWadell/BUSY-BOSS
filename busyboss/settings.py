@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'busyapp',
+    # 'haystack',
     # 'search',
-    'django_elasticsearch_dsl',
 ]
 
 ELASTICSEARCH_DSL = {
