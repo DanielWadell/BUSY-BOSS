@@ -2,22 +2,23 @@
 
 {% block body_block %}
 <div class='pagination'>
-
+<div textalign='center'>
+        <ul class="cd-pagination no-space">
     {% if posts.has_previous %}    
 
-        <a href="?page=1"><<<</a>
-        <a href="?page={{ posts.previous_page_number }}"><</a>
+        <a class='button' href="?page=1"><<<</a>
+        <a class='button' href="?page={{ posts.previous_page_number }}"><</a>
     {% endif %}
 
     {% for num in posts.paginator.page_range %}
         
         {% if posts.number == num %}
 
-            <strong>{{ num }}</strong>
+        <strong class='button' id='current'>{{ num }}</strong>
         
         {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
 
-            {{ num }}
+            <strong class='button'>{{ num }}</strong>
         
         {% endif %}
         
@@ -25,11 +26,12 @@
 
     {% if posts.has_next %}
 
-        <a href="?page={{ posts.next_page_number }}">></a>
-        <a href="?page={{ posts.paginator.num_pages }}">>>></a>
+        <a class='button'href="?page={{ posts.next_page_number }}">></a>
+        <a class='button'href="?page={{ posts.paginator.num_pages }}">>>></a>
     
     {% endif %}
-    
+        </ul>
+    </div>
 </div>
 <h1>Welcome to Busy Boss homepage!</h1>
     {% if user.is_authenticated %}
@@ -41,6 +43,9 @@
     </a>
     {% endfor %}
     {% else %}
+
     <div class='jumbotron'><h2>Please login or register to view blog posts</h2></div>
+    
     {% endif %}
+
 {% endblock %}
