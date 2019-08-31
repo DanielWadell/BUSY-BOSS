@@ -1,1 +1,1 @@
-web: gunicorn app:app --log-file=-
+web: gunicorn busyboss.wsgi --log-file -
