@@ -1,4 +1,4 @@
-anaconda-client==1.7.2
+anaconda-client==1.2.2
 argon2-cffi==19.1.0
 asn1crypto==0.24.0
 astroid==2.2.5
