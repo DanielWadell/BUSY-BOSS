@@ -3,18 +3,21 @@
 {% block body_block %}
 
 
-        <h1 class='posttitle loader'>{{ post.title }}</h1>
+        <h1>{{ post.title }}</h1>
 
         {% if post.published_date %}
-            <div class="date postdate">
-                <strong>{{ post.published_date }}</strong>
+            <div>
+                <strong>Published: {{ post.published_date }}</strong>
             </div>
 
         {% else %}
             <a class="btn btn-light" href="{% url 'busyapp:post_publish' pk=post.pk %}">Publish</a>
         {% endif %}
-
-      <p class='postcontent' ><strong>{{ post.text|safe|linebreaksbr }}</strong></p>
+        
+        <div class="jumbotron">
+                <p><strong>{{ post.text|safe|linebreaksbr }}</strong></p>
+        </div>
+      
 
 
       {% if user.is_authenticated %}
@@ -37,14 +40,6 @@
             <div class='jumbotron'>
                 <strong><p>{{ comment.text|safe|linebreaks }}</p></strong>
             </div>
-<<<<<<< HEAD
-=======
-              
-              <!-- {% if not comment.approved_comment %}
-                  <a class="btn btn-light" href="{% url 'busyapp:comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
-                  <a class="btn btn-light" href="{% url 'busyapp:comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
-              {% endif %} -->
->>>>>>> ee19540610546ec80f9446cbbd26f031bf9d6e20
               <strong><p>Posted by: {{ comment.author }} on {{ comment.create_date }}</p></strong>
 
       {% endif %}

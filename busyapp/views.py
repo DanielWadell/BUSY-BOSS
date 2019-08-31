@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from busyapp.models import UserInfo,CompanyInfo,Post,Comment
-from busyapp.forms import UserForm,CompanyForm,PostForm,CommentForm
+from busyapp.models import Post,Comment
+from busyapp.forms import UserForm,PostForm,CommentForm
 from django.utils import timezone
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate,login,logout
@@ -26,44 +26,12 @@ def index(request):
 def is_member(user):
     return user.groups.filter(name='Member').exists()
 
-def register_company(request):
-
-    registered = False
-    if request.method == "POST":
-        user_form = UserForm(data=request.POST)
-        company_form = CompanyForm(data=request.POST)
-
-        if user_form.is_valid():
-
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-            company = company_form.save()
-            company.set_password
-            profile = user_form.save(commit=False)
-            profile.user = user
-
-            registered = True
-            if 'profile_pic' in request.FILES:
-                profile.profile_pic = request.FILES['profile_pic']
-
-                profile.save()
-        else:
-            print(user_form.errors,user_form.errors)
-    else:
-        user_form = UserForm()
-        company_form = CompanyForm()
-
-    return render(request,'busyapp/registration.html',
-                            {'user_form':user_form,
-                             'company_form':company_form})
 def register_user(request):
 
     registered = False
 
     if request.method == "POST":
         user_form = UserForm(data=request.POST)
-        company_form = CompanyForm(data=request.POST)
 
         if user_form.is_valid():
 
@@ -72,24 +40,14 @@ def register_user(request):
             user.save()
 
             registered = True
-<<<<<<< HEAD
-
-=======
-            # if 'profile_pic' in request.FILES:
-            #     profile.profile_pic = request.FILES['profile_pic']
-
-            #     profile.save()
->>>>>>> ee19540610546ec80f9446cbbd26f031bf9d6e20
             return redirect('busyapp:index')
         else:
            return HttpResponse("invalid login!!!")
     else:
         user_form = UserForm()
-        company_form = CompanyForm()
 
     return render(request,'busyapp/registration.html',
-                            {'user_form':user_form,
-                             'company_form':company_form})
+                            {'user_form':user_form})
 
 def user_login(request):
 
@@ -119,14 +77,6 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('busyapp:index'))
 
-<<<<<<< HEAD
-=======
-@login_required
-def start_post(request):
-    form = PostForm()
-    return render(request, 'busyapp/post_form.html',{'post':form})
-
->>>>>>> ee19540610546ec80f9446cbbd26f031bf9d6e20
 class PostUpdateView(UpdateView):
     fields=('title','text')
     model = Post
@@ -148,55 +98,24 @@ class PostDeleteView(DeleteView):
         return super(PostDeleteView, self).dispatch(request, *args, **kwargs)
 
 class CreatePostView(CreateView):
-<<<<<<< HEAD
     fields = ('title','text',)
     model = Post
     def form_valid(self, PostForm):
-=======
-    
-    fields = ('title','text',)
-    model = Post
-    def form_valid(self, PostForm):
-        """
-        Called if all forms are valid. Creates a Recipe instance along with
-        associated Ingredients and Instructions and then redirects to a
-        success page.
-        """
->>>>>>> ee19540610546ec80f9446cbbd26f031bf9d6e20
         obj = PostForm.save(commit=False)
         obj.author = self.request.user
         obj.save()
         return redirect('busyapp:index')
-<<<<<<< HEAD
 
 class PostListView(ListView):
     model = Post
 
 class CreateCommentView(CreateView):
-=======
-class PostListView(ListView):
-    model = Post
-
-    # def get_queryset(self):
-    #     return Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-class CreateCommentView(CreateView):
-    
->>>>>>> ee19540610546ec80f9446cbbd26f031bf9d6e20
     fields = ('text',)
     model = Comment
 
 class PostDetailView(DetailView):
     model = Post
 
-<<<<<<< HEAD
-=======
-class DraftListView(ListView):
-    model = Post
-
-    # def get_queryset(self):
-    #     return Post.objects.filter(published_date__isnull=True).order_by('created_date')
-
->>>>>>> ee19540610546ec80f9446cbbd26f031bf9d6e20
 @login_required
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)

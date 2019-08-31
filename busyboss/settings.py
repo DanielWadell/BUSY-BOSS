@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
+import django_heroku
+
 
 import os
 
@@ -25,7 +27,7 @@ SECRET_KEY = '5*p5ksa*6dxnc$c4l68lw28jf4h%eokrh3_dz#46twr5w*&5zw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,15 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'busyapp',
-    # 'haystack',
-    # 'search',
 ]
-
-# ELASTICSEARCH_DSL = {
-#     'default':{
-#         'hosts':'localhost:9200'
-#     },
-# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -129,3 +123,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = '/busyapp/log_in'
+
+django_heroku.settings(locals())

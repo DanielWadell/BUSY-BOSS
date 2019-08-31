@@ -1,13 +1,15 @@
 {% extends 'busyapp/base.html' %}
 
 {% block body_block %}
+
 <div class='pagination'>
 <div textalign='center'>
         <ul class="cd-pagination no-space">
+     {% if user.is_authenticated %}
     {% if posts.has_previous %}    
 
-        <a class='button' href="?page=1"><<<</a>
-        <a class='button' href="?page={{ posts.previous_page_number }}"><</a>
+        <a class='button' id='arrow-buttons' href="?page=1"><button type="button" class="btn btn-light">First page</button></a>
+        <a class='button' id='arrow-buttons' href="?page={{ posts.previous_page_number }}"><button type="button" class="btn btn-light">Previous</button></a>
     {% endif %}
 
     {% for num in posts.paginator.page_range %}
@@ -16,19 +18,16 @@
 
         <strong class='button' id='current'>{{ num }}</strong>
         
-        {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
-
-            <strong class='button'>{{ num }}</strong>
-        
         {% endif %}
         
     {% endfor %}
 
     {% if posts.has_next %}
 
-        <a class='button'href="?page={{ posts.next_page_number }}">></a>
-        <a class='button'href="?page={{ posts.paginator.num_pages }}">>>></a>
+        <a class='button' id='arrow-buttons' href="?page={{ posts.next_page_number }}"><button type="button" class="btn btn-light">Next</button></a>
+        <a class='button' id='arrow-buttons' href="?page={{ posts.paginator.num_pages }}"><button type="button" class="btn btn-light">Last Page</button></a>
     
+    {% endif %}
     {% endif %}
         </ul>
     </div>

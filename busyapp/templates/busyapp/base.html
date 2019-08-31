@@ -8,17 +8,6 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-   
-<<<<<<< HEAD
-    <link rel="stylesheet" href="../../static/css/busyapp.css">
-=======
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-
-    <link rel="stylesheet" href="{% static 'css/pagination_css.scss' %}">
->>>>>>> ee19540610546ec80f9446cbbd26f031bf9d6e20
-
-    {# Fonts#}
-      <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
 
     <title>BUSY BOSS</title>
 </head>
@@ -26,28 +15,22 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
           <ul class="navbar-nav mr-auto">
-<<<<<<< HEAD
             <li class="nav-item">
-              <strong><a class="nav-link" href="{% url 'busyapp:index' %}">Home<span class="sr-only">(current)</span></a></strong>
-=======
-            <li class="nav-item active">
-              <strong><a class="nav-link" href="{% url 'busyapp:index' %}">Home <span class="sr-only">(current)</span></a></strong>
->>>>>>> ee19540610546ec80f9446cbbd26f031bf9d6e20
+              <a class="nav-link" href="{% url 'busyapp:index' %}">Home<span class="sr-only">(current)</span></a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <strong><a class="nav-link" href="{% url 'busyapp:logout' %}">Log out</a></strong>
+                <a class="nav-link" href="{% url 'busyapp:logout' %}">Log out</a>
               </li>
               <li class='nav-item'>
-                <strong><a class="nav-link" href="{% url 'busyapp:create_post' %}" >New Post</a></strong>
+                <a class="nav-link" href="{% url 'busyapp:create_post' %}" >New Post</a>
               </li>
               <li class="nav-item">
-                <strong><a class="nav-link" href="{% url 'busyapp:post_draft_list' %}">Drafts</a></strong>
+                <a class="nav-link" href="{% url 'busyapp:post_draft_list' %}">Drafts</a>
               </li>
               <li class="nav-item">
-                <strong><a class="nav-link">Welcome: {{ user.username }}</a></strong>
+                <a class="nav-link">Welcome: {{ user.username }}</a>
               </li>
             {% else %}
             <li class="nav-item">

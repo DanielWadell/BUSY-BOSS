@@ -5,12 +5,7 @@
     <form method="POST" class="post-form">
     {% csrf_token %}
     {{form.as_p}}
-    <!-- <input type="hidden" name="author" value="{{ request.user.id }}"> -->
-<<<<<<< HEAD
     <button type="submit" class="save btn btn-light">Post Comment</button>
-=======
-    <button type="submit" class="save btn btn-primary">Post Comment</button>
->>>>>>> ee19540610546ec80f9446cbbd26f031bf9d6e20
     </form>
     
     <script>var editor = new MediumEditor('.editable');</script>
