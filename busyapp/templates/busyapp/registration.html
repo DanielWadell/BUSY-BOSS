@@ -1,0 +1,23 @@
+{% extends 'busyapp/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+<div class="jumbotron">
+    {% if registered %}
+        <h1>You have now been registered my guy</h1>
+
+    {% else %}
+        <h1>Register here</h1>
+        <h2>Fill out this form</h2>
+
+        <form method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            <input type="submit" class='btn btn-primary' value="Register">
+        </form>
+    {% endif %}
+
+</div>
+
+{% endblock %}

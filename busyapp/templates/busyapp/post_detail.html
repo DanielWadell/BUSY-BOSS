@@ -1,0 +1,53 @@
+{% extends 'busyapp/base.html' %}
+
+{% block body_block %}
+
+
+        <h1 class='posttitle loader'>{{ post.title }}</h1>
+
+        {% if post.published_date %}
+            <div class="date postdate">
+                <strong>{{ post.published_date }}</strong>
+            </div>
+
+        {% else %}
+            <a class="btn btn-light" href="{% url 'busyapp:post_publish' pk=post.pk %}">Publish</a>
+        {% endif %}
+
+      <p class='postcontent' ><strong>{{ post.text|safe|linebreaksbr }}</strong></p>
+
+
+      {% if user.is_authenticated %}
+      {% if user == post.author %}
+          <a class="btn btn-light" href="{% url 'busyapp:post_edit' pk=post.pk %}">edit</a>
+          <a class="btn btn-light" href="{% url 'busyapp:post_remove' pk=post.pk %}">delete</a>
+      {% endif %}
+      {% endif %}
+      <strong><p>Posted by: {{ post.author }}</p></strong>
+
+
+  <hr>
+  <a class="btn btn-light btn-comment" href="{% url 'busyapp:add_comment_to_post' pk=post.pk %}">Add comment</a>
+  <div class="container">
+
+
+  {% for comment in post.comments.all %}
+  <br>
+      {% if user.is_authenticated or comment.approved_comment %}
+            <div class='jumbotron'>
+                <strong><p>{{ comment.text|safe|linebreaks }}</p></strong>
+            </div>
+              
+              <!-- {% if not comment.approved_comment %}
+                  <a class="btn btn-light" href="{% url 'busyapp:comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                  <a class="btn btn-light" href="{% url 'busyapp:comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+              {% endif %} -->
+              <strong><p>Posted by: {{ comment.author }} on {{ comment.create_date }}</p></strong>
+
+      {% endif %}
+  {% empty %}
+      <p>No comments posted.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}
