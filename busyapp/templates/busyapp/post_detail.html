@@ -37,11 +37,6 @@
             <div class='jumbotron'>
                 <strong><p>{{ comment.text|safe|linebreaks }}</p></strong>
             </div>
-              
-              <!-- {% if not comment.approved_comment %}
-                  <a class="btn btn-light" href="{% url 'busyapp:comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
-                  <a class="btn btn-light" href="{% url 'busyapp:comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
-              {% endif %} -->
               <strong><p>Posted by: {{ comment.author }} on {{ comment.create_date }}</p></strong>
 
       {% endif %}

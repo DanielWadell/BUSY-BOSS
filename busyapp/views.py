@@ -151,9 +151,6 @@ class CreateCommentView(CreateView):
 class PostDetailView(DetailView):
     model = Post
 
-class DraftListView(ListView):
-    model = Post
-
 @login_required
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
