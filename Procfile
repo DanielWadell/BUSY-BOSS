@@ -1,1 +1,0 @@
-web: gunicorn busyapp.wsgi --log-file -
